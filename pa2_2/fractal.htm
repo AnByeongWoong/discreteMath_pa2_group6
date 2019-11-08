@@ -1,0 +1,103 @@
+<html>
+<body>
+
+<input type="text" id="depth" value="">
+
+<button onclick="doDraw()">Draw</button>
+<button onclick="doClear()">Clear</button>
+<br>
+<canvas id="canvas" width="600" height="500"></canvas>
+
+<script type="text/javascript">
+var elem = document.getElementById('canvas');
+var context = elem.getContext('2d');
+context.fillStyle = '#000';
+context.lineWidth = 1;
+var deg_to_rad = Math.PI / 180.0;
+
+function drawLine(x1, y1, x2, y2){
+  context.moveTo(x1, y1);
+  context.lineTo(x2, y2);
+}
+function drawFractal(x_f, y_f, x_b, y_b, depth, cepta, length){
+  if (depth !== 0){
+    
+    var t = length / (1+1*Math.cos(cepta * deg_to_rad* -1)) / 2;
+
+    var t2 = t * (Math.cos(cepta* deg_to_rad* -1));
+    //var gradient = -1 * (y_b - y_f) / (x_b - x_f);
+    var gradient =  (y_f - y_b) / (x_b - x_f);
+
+    var reverseGradient;
+
+    
+    //if((x_b - x_f) < 0){
+    //    gradient = gradient * -1;    
+    //}
+    var angleOfTri = Math.atan(gradient);
+    
+
+    var x1 = x_f;
+    var y1 = y_f;
+
+    var x2 = x_f + (x_b - x_f) * t / (length);
+    var y2 = y_f + (y_b - y_f) * t / (length);
+    
+
+    //var x3 = x2 + t * Math.cos((angleOfTri+cepta)*deg_to_rad*-1);
+    if((x_b - x_f) < 0){
+        var x3 = x2 - t * Math.cos((angleOfTri+cepta*deg_to_rad)*-1);
+        var y3 =  y2 + -1*t * Math.sin((angleOfTri+cepta*deg_to_rad)*-1);
+    }
+    else{
+        var x3 = x2 + t * Math.cos((angleOfTri+cepta*deg_to_rad)*-1);
+        var y3 = y2 + t * Math.sin((angleOfTri+cepta*deg_to_rad)*-1);
+    }
+    /*
+    if((x_b - x_f ) < 0){
+        var y3 =  y2 + -1*t * Math.sin((angleOfTri+cepta*deg_to_rad)*-1);
+    }
+    else{
+        var y3 = y2 + t * Math.sin((angleOfTri+cepta*deg_to_rad)*-1);
+
+    }*/
+    
+    //alert(Math.sin((angleOfTri+cepta*deg_to_rad)*-1));
+    //alert(Math.atan(((y2-y3)/(x3-x2))*deg_to_rad));
+    //alert((y2-y3));
+    
+    var x4 = x_f + (x_b - x_f) * (t + 2*t2) / (length);
+    var y4 = y_f + (y_b - y_f) * (t + 2*t2) / (length);
+
+    var x5 = x_b;
+    var y5 = y_b;
+
+    drawLine(x1,y1,x2,y2);
+    drawLine(x2,y2,x3,y3);
+    drawLine(x3,y3,x4,y4);
+    drawLine(x4,y4,x5,y5);
+    
+    drawFractal(x1,y1,x2,y2,depth-1,cepta,t);
+    drawFractal(x2,y2,x3,y3,depth-1,cepta,t);
+    drawFractal(x3,y3,x4,y4,depth-1,cepta,t);
+    drawFractal(x4,y4,x5,y5,depth-1,cepta,t);
+}
+}
+function doDraw(){
+  var depth = parseInt(document.getElementById("depth").value) ;
+
+  var cepta = 88;
+  var length = 400;
+  context.beginPath();
+  drawFractal(200, 400, 600, 400, depth, cepta, length);
+  context.closePath();
+  context.stroke();
+}
+function doClear() {
+
+  context.clearRect(0, 0, canvas.width, canvas.height) ;
+}
+</script>
+
+</body>
+</html>
