@@ -20,9 +20,10 @@ void init (Tree*);
 void lAdd (Node*,char*);
 void rAdd (Node*,char*);
 void print(Tree*);
-int search(Tree*,char*);
-void deleteData(Tree*, char*);
+Node* search(Node*,char*);
+void deleteNode(Node*,Node*);
 void freeList(Tree*);
 void moveList(Tree*);
-void clearNode(Node*);
+void clearNode(Node* t);
+
 #endif
