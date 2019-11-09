@@ -5,8 +5,9 @@
 #define FALSE 0
 
 typedef struct _node{
-    struct _node *prev;
-    struct _node *next;
+    struct _node *parent;
+    struct _node *left;
+    struct _node *right;
     char* data;
 }Node;
 
