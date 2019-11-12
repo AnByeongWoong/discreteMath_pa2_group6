@@ -1,0 +1,1 @@
+(and (or a1 a1) (or a3 a4 a5) (or a6 a7) (or a8 a9 a10) (or a11 a12))

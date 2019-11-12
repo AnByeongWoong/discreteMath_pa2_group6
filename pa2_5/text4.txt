@@ -1,0 +1,1 @@
+(not (and (or a1 (not a2)) (not a3)))

@@ -35,6 +35,4 @@ void checker(Node*);
 void NFFtoCNF(Node*);
 void printOrder(Node*);
 int tokNumber(char* );
-void textConversion(char* pStr, int length, char* Logic );
-int getLogicLength(char* pStr);
 #endif

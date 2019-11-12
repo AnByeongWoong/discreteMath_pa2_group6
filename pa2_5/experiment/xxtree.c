@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include "tree.h"
+#include "xxtree.h"
 
 void init (Tree* plist){
     
@@ -517,63 +517,3 @@ int tokNumber(char* number){
     //printf("%d\n",num);
     return num;
 }
-
-int getLogicLength(char* pStr){
-
-    int length=0;
-    length= length+2;
-    int i=0;
-            while(i != strlen(pStr)-2){
-                if(pStr[i]=='n' && pStr[i+1]=='o' && pStr[i+2]=='t'){
-                    length++;
-                    i = i+3;
-                }
-                else if(pStr[i]=='a' && pStr[i+1]=='n' && pStr[i+2]=='d'){
-                    length++;
-                    i = i+3;
-                }
-                else if(pStr[i]=='o' && pStr[i+1]=='r'){
-                    length++;
-                    i = i+2;
-                }
-                else{
-                    length++;
-                    i++;
-                }
-                
-            }
-    return length;
-}
-
-void textConversion(char* pStr, int length, char* Logic ){
-    int i=0;
-    int k =0;
-    while(i!=length){
-        if(k<strlen(pStr)-2){
-            if(pStr[k]=='n' && pStr[k+1]=='o' && pStr[k+2]=='t'){
-                Logic[i]='~';
-                // printf("Logic[%s]\n",Logic);
-                k = k+3;
-            }
-            else if(pStr[k]=='a' && pStr[k+1]=='n' && pStr[k+2]=='d'){
-                Logic[i]='n';
-                k = k+3;
-            }
-            else if(pStr[k]=='o' && pStr[k+1]=='r'){
-                Logic[i]='V';
-                k = k+2;
-            }
-            else{
-                Logic[i]=pStr[k];
-                k++;
-                
-            }
-        }
-        else{
-            Logic[i]=pStr[k];
-                k++;
-        }
-        i++;        
-    }
-}
-

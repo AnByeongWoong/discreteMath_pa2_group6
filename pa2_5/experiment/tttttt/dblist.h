@@ -22,5 +22,4 @@ int search(DoublyLinkedList*,char*);
 void deleteData(DoublyLinkedList*, char*);
 void freeList(DoublyLinkedList*);
 void moveList(DoublyLinkedList*);
-
 #endif
