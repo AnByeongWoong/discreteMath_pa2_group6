@@ -3,15 +3,23 @@
 #include<string.h>
 #include "tree.h"
 
-
-
-
-
-
-
-
-
-
+int checkBrace(char* str){
+    int i =0;
+    int count=0;
+    while(i != strlen(str)){
+        if(str[i]=='('){
+            count++;
+        }
+        else if(str[i] == ')'){
+            count--;
+        }
+        i++;
+    }
+    if(count ==0){
+        return 1;
+    }
+    else return -1;
+}
 
 int main(){
 

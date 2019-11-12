@@ -241,9 +241,11 @@ void dimensionMore(Node* treeNode, char* operator, char* elements,int dimensionC
 
         elements = strtok(NULL,"M");
         dimensionMore(treeNode, operator,elements,dimensionCount-1 );
-        
+
         ////dimensionMore() 하나더 넣어주기 
     }
+    makeTree(treeNode->lChild,treeNode->lChild->data);
+    makeTree(treeNode->rChild,treeNode->rChild->data);
 }
 
 void makeTree(Node* treeNode, char* text){
@@ -519,29 +521,28 @@ int tokNumber(char* number){
 }
 
 int getLogicLength(char* pStr){
-
     int length=0;
     length= length+2;
     int i=0;
-            while(i != strlen(pStr)-2){
-                if(pStr[i]=='n' && pStr[i+1]=='o' && pStr[i+2]=='t'){
-                    length++;
-                    i = i+3;
-                }
-                else if(pStr[i]=='a' && pStr[i+1]=='n' && pStr[i+2]=='d'){
-                    length++;
-                    i = i+3;
-                }
-                else if(pStr[i]=='o' && pStr[i+1]=='r'){
-                    length++;
-                    i = i+2;
-                }
-                else{
-                    length++;
-                    i++;
-                }
-                
+        while(i != strlen(pStr)-2){
+            if(pStr[i]=='n' && pStr[i+1]=='o' && pStr[i+2]=='t'){
+                length++;
+                i = i+3;
             }
+            else if(pStr[i]=='a' && pStr[i+1]=='n' && pStr[i+2]=='d'){
+                length++;
+                i = i+3;
+            }
+            else if(pStr[i]=='o' && pStr[i+1]=='r'){
+                length++;
+                i = i+2;
+            }
+            else{
+                length++;
+                i++;
+            }
+            
+        }
     return length;
 }
 
