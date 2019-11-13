@@ -71,16 +71,19 @@ function drawFractal(x_f, y_f, x_b, y_b, depth, cepta, length){
 
     var x5 = x_b;
     var y5 = y_b;
-
-    drawLine(x1,y1,x2,y2);
-    drawLine(x2,y2,x3,y3);
-    drawLine(x3,y3,x4,y4);
-    drawLine(x4,y4,x5,y5);
+    if(depth===1){
+      drawLine(x1,y1,x2,y2);
+      drawLine(x2,y2,x3,y3);
+      drawLine(x3,y3,x4,y4);
+      drawLine(x4,y4,x5,y5);
+    }
+    
     
     drawFractal(x1,y1,x2,y2,depth-1,cepta,t);
     drawFractal(x2,y2,x3,y3,depth-1,cepta,t);
     drawFractal(x3,y3,x4,y4,depth-1,cepta,t);
     drawFractal(x4,y4,x5,y5,depth-1,cepta,t);
+
 }
 }
 function doDraw(){

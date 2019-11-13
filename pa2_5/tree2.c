@@ -2,9 +2,6 @@
 #include<stdlib.h>
 #include<string.h>
 #include "tree.h"
-///// 생각한 알고리즘 dimension change 를 할때 글자를 앞으로 당길 수 만 있다면??? 가능 
-
-
 
 void init (Tree* plist){
     
@@ -277,7 +274,21 @@ void makeTree(Node* treeNode, char* text){
         return;
     }
     else if(dimensionCount >3){
-        treeNode->data = ptr;
+        if(strlen(ptr)>1){
+            if(strcmp(ptr,"not")==0){
+                treeNode->data = "~";        
+            }
+            else if(strcmp(ptr,"or")==0){
+                treeNode->data = "V";        
+            }
+            else if(strcmp(ptr,"and")==0){
+                treeNode->data = "n";        
+            }
+        }
+        else{
+            treeNode->data = ptr;
+        }
+        
 
         // printf("dimensionCount>3 ptr:[%s]\n",ptr);
 
@@ -290,7 +301,20 @@ void makeTree(Node* treeNode, char* text){
 
     }
     else{
-        treeNode->data = ptr;
+        if(strlen(ptr)>1){
+            if(strcmp(ptr,"not")==0){
+                treeNode->data = "~";        
+            }
+            else if(strcmp(ptr,"or")==0){
+                treeNode->data = "V";        
+            }
+            else if(strcmp(ptr,"and")==0){
+                treeNode->data = "n";        
+            }
+        }
+        else{
+            treeNode->data = ptr;
+        }
         // printf("ptr:[%s]\n",ptr);
         ptr = strtok(NULL,"M");
         

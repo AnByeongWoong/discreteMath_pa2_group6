@@ -100,33 +100,33 @@ int main(){
     //// 리눅스 출력이다름 리눅스때는 없어짐
     // pStr[strlen(pStr)-1] = '\0';
 
-    length = getLogicLength(pStr);
-    char* Logic = (char*)malloc(sizeof(char)*(length+1)); 
-    Logic[length] = '\0';
-    textConversion(pStr, length, Logic);
-    // char* Logic = replaceWord(pStr, "(not", "(~");
-    // Logic = replaceWord(Logic, "(or", "(V");
-    // Logic = replaceWord(Logic, "(and", "(n");
-    if(checkBracket(Logic)==-1){
-        printf("syntax error!! check bracket\n");
-        return 0;
-    }
-    if(checkOperator(Logic)==-1){
-        printf("syntax error!! check operator\n");
-        return 0;
-    }
-    printf("tttttttttt[%s]\n",Logic);
+    // length = getLogicLength(pStr);
+    // char* Logic = (char*)malloc(sizeof(char)*(length+1)); 
+    // Logic[length] = '\0';
+    // textConversion(pStr, length, Logic);
+    // // char* Logic = replaceWord(pStr, "(not", "(~");
+    // // Logic = replaceWord(Logic, "(or", "(V");
+    // // Logic = replaceWord(Logic, "(and", "(n");
+    // if(checkBracket(Logic)==-1){
+    //     printf("syntax error!! check bracket\n");
+    //     return 0;
+    // }
+    // if(checkOperator(Logic)==-1){
+    //     printf("syntax error!! check operator\n");
+    //     return 0;
+    // }
+    // printf("tttttttttt[%s]\n",Logic);
     Tree tree;
     init(&tree);
     Node *start = (Node*)malloc(sizeof(Node));
     start->parent = tree.root;
     tree.root->lChild = start;
-    start->data = Logic;
+    start->data = pStr;
 
     start->lChild = NULL;
     start->rChild = NULL;
-    makeTree(start, Logic);
-    // printall(tree.root->lChild);
+    makeTree(start, pStr);
+    printall(tree.root->lChild);
     
     Node* notnode;
     char* not="~";
@@ -138,6 +138,6 @@ int main(){
 
     clearNode(tree.root);
 
-    free(Logic);
+    // free(Logic);
     return 0;
 }
