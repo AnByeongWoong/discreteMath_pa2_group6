@@ -24,9 +24,10 @@ int checkBracket(char* str){
 
 int checkOperator(char* str){
     int i =0;
-    while(i != strlen(str)){
-        if(str[i]=='V' || str[i] == 'n' || str[i] == '~' ){
-            if(str[i-1]!='('){
+    while(i != strlen(str)-1){
+        if(str[i]=='('){
+            if(str[i+1]!='n' || str[i+1]!='o' || str[i+1] !='a' ){
+                printf("operation error\n");
                 return -1;
             }
         }
@@ -36,40 +37,6 @@ int checkOperator(char* str){
     
     return 1;
 }
-
-char *replaceWord(char *s, const char *oldW, const char *newW) 
-{ 
-    char *result; 
-    int i, cnt = 0; 
-    int newWlen = strlen(newW); 
-    int oldWlen = strlen(oldW); 
-  
-    for (i = 0; s[i] != '\0'; i++) 
-    { 
-        if (strstr(&s[i], oldW) == &s[i]) 
-        { 
-            cnt++; 
-            i += oldWlen - 1; 
-        } 
-    } 
-    result = (char *)malloc(i + cnt * (newWlen - oldWlen) + 1); 
-  
-    i = 0; 
-    while (*s) 
-    { 
-        if (strstr(s, oldW) == s) 
-        { 
-            strcpy(&result[i], newW); 
-            i += newWlen; 
-            s += oldWlen; 
-        } 
-        else
-            result[i++] = *s++; 
-    } 
-  
-    result[i] = '\0'; 
-    return result; 
-} 
 
 int main(){
 
@@ -92,6 +59,9 @@ int main(){
     }
     //// 리눅스 출력이다름 리눅스때는 없어짐
     // pStr[strlen(pStr)-1] = '\0';
+	if(checkBracket(pStr)==-1){
+		printf("bracket error\n");
+	};
     Tree tree;
     init(&tree);
     Node *start = (Node*)malloc(sizeof(Node));
