@@ -13,7 +13,6 @@ void init (Tree* plist){
     dummy -> rChild = NULL;
     dummy -> lChild = NULL;
     plist -> root= dummy;
-    printf("init finish\n");
 }
 
 void lAdd (Node*current,char* newData){
