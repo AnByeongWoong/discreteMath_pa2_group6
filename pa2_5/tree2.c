@@ -54,7 +54,6 @@ void notCalculator(Node* notNode,Node* parentNode){
     char not[4]="~";
     if(notNode==NULL) return;
     
-    printf("what the[%s]?\n",notNode->data);
     if(strcmp(notNode->data,"V")==0) notNode->data="n";
     else if(strcmp(notNode->data,"n")==0) notNode->data="V";
     else if(strcmp(notNode->data,"~")==0) 
