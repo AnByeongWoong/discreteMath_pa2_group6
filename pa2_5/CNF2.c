@@ -44,26 +44,19 @@ char *replaceWord(char *s, const char *oldW, const char *newW)
     int newWlen = strlen(newW); 
     int oldWlen = strlen(oldW); 
   
-    // Counting the number of times old word 
-    // occur in the string 
     for (i = 0; s[i] != '\0'; i++) 
     { 
         if (strstr(&s[i], oldW) == &s[i]) 
         { 
             cnt++; 
-  
-            // Jumping to index after the old word. 
             i += oldWlen - 1; 
         } 
     } 
-  
-    // Making new string of enough length 
     result = (char *)malloc(i + cnt * (newWlen - oldWlen) + 1); 
   
     i = 0; 
     while (*s) 
     { 
-        // compare the substring with the result 
         if (strstr(s, oldW) == s) 
         { 
             strcpy(&result[i], newW); 
@@ -99,23 +92,6 @@ int main(){
     }
     //// 리눅스 출력이다름 리눅스때는 없어짐
     // pStr[strlen(pStr)-1] = '\0';
-
-    // length = getLogicLength(pStr);
-    // char* Logic = (char*)malloc(sizeof(char)*(length+1)); 
-    // Logic[length] = '\0';
-    // textConversion(pStr, length, Logic);
-    // // char* Logic = replaceWord(pStr, "(not", "(~");
-    // // Logic = replaceWord(Logic, "(or", "(V");
-    // // Logic = replaceWord(Logic, "(and", "(n");
-    // if(checkBracket(Logic)==-1){
-    //     printf("syntax error!! check bracket\n");
-    //     return 0;
-    // }
-    // if(checkOperator(Logic)==-1){
-    //     printf("syntax error!! check operator\n");
-    //     return 0;
-    // }
-    // printf("tttttttttt[%s]\n",Logic);
     Tree tree;
     init(&tree);
     Node *start = (Node*)malloc(sizeof(Node));
@@ -126,18 +102,14 @@ int main(){
     start->lChild = NULL;
     start->rChild = NULL;
     makeTree(start, pStr);
-    printall(tree.root->lChild);
-    
+
     Node* notnode;
     char* not="~";
     search(start,not);
-    // printall(tree.root->lChild);
     NFFtoCNF(tree.root);
-    // printall(tree.root->lChild);
     printOrder(tree.root->lChild);
 
     clearNode(tree.root);
 
-    // free(Logic);
     return 0;
 }

@@ -37,7 +37,7 @@ void rAdd (Node*current,char* newData){
 
 }
 
-void search(Node*plist,char* sdata){//not node가 어디에 있는지 찾아보는 sdata에는 not이 들어있음 function
+void search(Node*plist,char* sdata){
     Node *find=NULL;
     if(plist==NULL) return;
     if(strcmp(plist->data,sdata)==0){
@@ -50,14 +50,14 @@ void search(Node*plist,char* sdata){//not node가 어디에 있는지 찾아보�
     search(plist->rChild,sdata);
     // return find;
 }
-void notCalculator(Node* notNode,Node* parentNode){//notnode에 처음 찾은 not의 왼쪽 오른쪽을 parmeter로 각각줘서 실행,즉 notcalculator를 두번 실행한다고 보면 됨.
+void notCalculator(Node* notNode,Node* parentNode){
     char not[4]="~";
     if(notNode==NULL) return;
     
     printf("what the[%s]?\n",notNode->data);
     if(strcmp(notNode->data,"V")==0) notNode->data="n";
     else if(strcmp(notNode->data,"n")==0) notNode->data="V";
-    else if(strcmp(notNode->data,"~")==0) //처음 not이 아니라 not뒤에 not이 있을때,
+    else if(strcmp(notNode->data,"~")==0) 
     {
         deleteNode(notNode,parentNode);
         return;
@@ -136,7 +136,6 @@ void printall(Node* t){
     printall(t->rChild);
 }
 void NFFtoCNF(Node* root){
-    /////// 바꾼 부분 //// 병웅
     int num=0;
     Node* t = root->lChild;
     while(1){
@@ -147,20 +146,10 @@ void NFFtoCNF(Node* root){
     }
 }
 void checker(Node* plist){
-    // int count=0;
     if(plist==NULL) return;
     if(strcmp(plist->data,"V")==0){
         if(strcmp(plist->lChild->data,"n")==0){
-        ////// 문제는 마찬가지로 데이터의 뿌리가 변화한 것 
-        printf("left plis[%s]\n",plist->data);
-        printf("left plis[%s]\n",plist->lChild->data);
-        printf("left plis[%s]\n",plist->parent->data);
          changer(plist,plist->lChild,0);
-        printf("left plisadffdfddf\n");
-        printf("left plis[%s]\n",plist->data);
-        printf("left plis[%s]\n",plist->lChild->data);
-        printf("left plis[%s]\n",plist->parent->data);
-    
          return;   
         }
         else if(strcmp(plist->rChild->data,"n")==0){
@@ -188,13 +177,6 @@ int checkTheorder(Node*plist){
     if(num1+num2==0) return 0;
     else return 1;
 }
-/*
-만약 현재 노드가 v면 자식 노드들 중에 n이 있나 체크하고 없으면 각각 자식노드로 내려간다.
-그리고 위와 같이 체크 만약 있다면 
-분배 법칙으로 한다.
-어떻게 분배 법칙으로 하면 
-*/
-
 int DimensionAndChange(char* text){
     int garoCount = 0;
     int countDirection=0;
@@ -234,15 +216,9 @@ void dimensionMore(Node* treeNode, char* operator, char* elements,int dimensionC
         return;
     }
     else{
-        printf("tttt\n");
         lAdd(treeNode, elements);
-        // rAdd(treeNode, operator);
-                printf("tttt\n");
-
         elements = strtok(NULL,"M");
         dimensionMore(treeNode, operator,elements,dimensionCount-1 );
-
-        ////dimensionMore() 하나더 넣어주기 
     }
     makeTree(treeNode->lChild,treeNode->lChild->data);
     makeTree(treeNode->rChild,treeNode->rChild->data);
@@ -251,23 +227,18 @@ void dimensionMore(Node* treeNode, char* operator, char* elements,int dimensionC
 void makeTree(Node* treeNode, char* text){
     char *ptr;
     if(text == NULL){
-        printf("text finish\n");
-        printf("lastx %s\n",text);
         return;
     }
     
     
-    ///// 받아온 () 짜르기
+
     int dimensionCount = 0;
     if(text[strlen(text)-1] == ')'){
         text[strlen(text)-1] = '\0';
         dimensionCount = DimensionAndChange(&text[1]);
-            printf("dimensionCount: [%d]\n",dimensionCount);
-
         ptr = strtok(&text[1],"M");
     }
     else{
-       //data 그냥 써도 됌 
        ptr = text;
     }
     if(dimensionCount == 0){
@@ -288,14 +259,8 @@ void makeTree(Node* treeNode, char* text){
         else{
             treeNode->data = ptr;
         }
-        
-
-        // printf("dimensionCount>3 ptr:[%s]\n",ptr);
-
         ptr = strtok(NULL,"M");
-        lAdd(treeNode,ptr);
-        // printf("dimensionCount>3 lchild ptr:[%s]\n",ptr);
-        
+        lAdd(treeNode,ptr);    
         ptr = strtok(NULL,"M");
         dimensionMore(treeNode, treeNode->data, ptr, dimensionCount);
 
@@ -315,11 +280,9 @@ void makeTree(Node* treeNode, char* text){
         else{
             treeNode->data = ptr;
         }
-        // printf("ptr:[%s]\n",ptr);
         ptr = strtok(NULL,"M");
         
         lAdd(treeNode, ptr);
-        // printf("lchild:[%s]\n",treeNode->lChild->data);
         if(dimensionCount == 2){
 
             makeTree(treeNode->lChild, treeNode->lChild->data);
@@ -330,26 +293,22 @@ void makeTree(Node* treeNode, char* text){
 
         
         rAdd(treeNode, ptr);
-        // printf("rchild:[%s]\n",treeNode->rChild->data);
     }
 
     makeTree(treeNode->lChild, treeNode->lChild->data);
     makeTree(treeNode->rChild, treeNode->rChild->data);
 }
 
-///// Node를 하나 만들고 그것을 보내주기, treeNode를 copiedNode에 복사한다
 void makeCopyNode(Node* treeNode, Node* copiedNode){
 
-    // Node* copyNode=(Node*)malloc(sizeof(Node));
     if(treeNode == NULL){
         return;
     }
     copiedNode->data = treeNode->data;
-    // printf("dddddd[%s]\n",copiedNode->data);
+
     if(treeNode->lChild != NULL){
         
         Node* newNodeLeft=(Node*)malloc(sizeof(Node)); 
-        // newNodeLeft->rChild = NULL;  
         copiedNode->lChild = newNodeLeft; 
         newNodeLeft->parent = copiedNode;
         makeCopyNode(treeNode->lChild, newNodeLeft);
@@ -357,19 +316,14 @@ void makeCopyNode(Node* treeNode, Node* copiedNode){
     if(treeNode->rChild != NULL){
         
         Node* newNodeRight=(Node*)malloc(sizeof(Node));   
-        // newNodeRight->lChild = NULL;
         copiedNode->rChild = newNodeRight; 
         newNodeRight->parent = copiedNode;
         makeCopyNode(treeNode->rChild, newNodeRight);
     }
     return;
-    /// data를 복사할때 allocate를 해야하는지 아닌지는 나중에 생각해보기
 }
 
-
-/// plist 중복될 node , childe 는 바꿀 노드, 
 void changer(Node*plist,Node*child,int num){
-            // printf("aaaa%paaaaa\n",plist->parent);
 
 
     Node* copyNode=(Node*)malloc(sizeof(Node));
@@ -377,16 +331,7 @@ void changer(Node*plist,Node*child,int num){
     copyNode->parent = NULL;
     copyNode->lChild = NULL;
     copyNode->rChild = NULL;
-    if(num==1){//오른쪽꺼랑 바꿔야 될떄
-        /*
-        먼저 copyNode의 왼쪽 child를 plist의 왼쪽 child와 동일하게 만들고
-        data도 plist의 데이터와 동일하게 만든다.
-        그리고 child의 노드의 왼쪽 child를 copyNode 오른쪽 child에 연결
-        그리고 plist의 오른쪽 노드를 child노드의 오른쪽에 연결
-        그리고 child의 왼쪽을 copynode에 연결,child의 오른쪽 노드를 plist에 연결
-        plist가 parent의 왼쪽인지 오른쪽인지 알아야 된다.
-        */
-        //// copy
+    if(num==1){
         Node* copyNodeLeft=(Node*)malloc(sizeof(Node));
         copyNodeLeft->parent = NULL;
         copyNodeLeft->rChild = NULL;
@@ -399,7 +344,6 @@ void changer(Node*plist,Node*child,int num){
         if(plist->parent!=NULL){
             if(plist->parent->lChild == plist){
             plist->parent->lChild = child;
-            // printf("adsfaddffdafdfdadffddafdffdafd\n");
             }
             else{
                 plist->parent->rChild = child;
@@ -415,7 +359,7 @@ void changer(Node*plist,Node*child,int num){
         child->rChild = copyNode;
         copyNode->parent = child;
     }
-    else if(num==0){//왼쪽꺼랑 바꿀때
+    else if(num==0){
         Node* copyNodeRight=(Node*)malloc(sizeof(Node));
         copyNodeRight->parent = NULL;
         copyNodeRight->rChild = NULL;
@@ -448,65 +392,12 @@ void changer(Node*plist,Node*child,int num){
 
         child->lChild = copyNode;
         copyNode->parent = child;
-        // printf("copynode pringn\n");
-        // printall(child);
-        //  printf("copynode pringn\n");
 
     }
 
 }
 
 void printOrder(Node* plist){
-    // if(plist==NULL) return;
-    // if(strcmp(plist->data,"n")==0){
-    //     if(strcmp(plist->lChild->data,"V")!=0&&strcmp(plist->lChild->data,"n")!=0&&(plist->lChild->data != NULL)){
-    //         int num=tokNumber(plist->lChild->data);
-    //         printf("%d\n",num);
-    //     }
-    //     if(strcmp(plist->rChild->data,"V")!=0&&strcmp(plist->rChild->data,"n")!=0&&(plist->rChild->data != NULL)){
-    //         int num=tokNumber(plist->rChild->data);
-    //         printf("%d\n",num);
-    //     }
-    // }
-    // else if(strcmp(plist->data,"V")==0&&strcmp(plist->parent->data,"n")!=0){
-    //     if(strcmp(plist->lChild->data,"V")!=0&&(plist->lChild->data != NULL)){
-    //         int num=tokNumber(plist->lChild->data);
-    //         printf("%d ",num);
-    //     }
-    //     if(strcmp(plist->rChild->data,"V")!=0&&(plist->rChild->data != NULL)){
-    //         int num=tokNumber(plist->rChild->data);
-    //         printf("%d ",num);
-    //     }
-    // }
-    // else if(strcmp(plist->data,"V")==0&&strcmp(plist->parent->data,"n")==0){
-    //     printf("\n");
-    //     if(strcmp(plist->lChild->data,"V")!=0&&(plist->lChild->data != NULL)){
-    //        int num=tokNumber(plist->lChild->data);
-    //        printf("%d ",num);
-    //     }
-    //     if(strcmp(plist->rChild->data,"V")!=0&&(plist->rChild->data != NULL)){
-    //         int num=tokNumber(plist->rChild->data);
-    //         printf("%d ",num);
-    //     }
-    // }
-    // printOrder(plist->lChild);
-    // printOrder(plist->rChild);
-
-    // if(plist==NULL) return;
-    // if(strcmp(plist->data,"n")==0){
-    //     printOrder(plist->lChild);
-    //     if(plist->lChild!=NULL) printf("\n");
-    //     printOrder(plist->rChild);
-    //     if(plist->rChild!=NULL) printf("\n");
-    // }
-    // else if(strcmp(plist->data,"V")==0){
-    //     printOrder(plist->lChild);
-    //     printOrder(plist->rChild);
-    // }
-    // else{
-    //     int num=tokNumber(plist->data);
-    //     printf("%d ",num);
-    // }
       if(plist==NULL) return;
     if(strcmp(plist->data,"n")==0){
         printOrder(plist->lChild);
@@ -527,10 +418,6 @@ void printOrder(Node* plist){
 
 }
 int tokNumber(char* number){
-    /*받은거에서 맨앞에가 ~가 있는지 판단하고
-    있으면, 첫번째 인덱스에 - 집어넣고, number인덱스 3번째부터 \0전까지 받는다.
-    없으면, number에 두번째 인덱스 부터 \0전까지 받는다.
-    받은 것을 숫자로 바꿈 그리고 보내줌*/
     char*changeNumber=(char*)malloc(sizeof(char*)*(strlen(number)+1));
     if(number[0]=='~'){
         changeNumber[0]='-';
@@ -544,7 +431,6 @@ int tokNumber(char* number){
         }
     }
     int num=atoi(changeNumber);
-    //printf("%d\n",num);
     return num;
 }
 
@@ -581,7 +467,6 @@ void textConversion(char* pStr, int length, char* Logic ){
         if(k<strlen(pStr)-2){
             if(pStr[k]=='n' && pStr[k+1]=='o' && pStr[k+2]=='t'){
                 Logic[i]='~';
-                // printf("Logic[%s]\n",Logic);
                 k = k+3;
             }
             else if(pStr[k]=='a' && pStr[k+1]=='n' && pStr[k+2]=='d'){
